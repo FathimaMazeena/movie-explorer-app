@@ -24,10 +24,10 @@ import {
   Menu as MenuIcon
 } from '@mui/icons-material';
 
-const Navbar = ({ toggleTheme, isDarkMode }) => {
+const Navbar = ({ toggleTheme, isDarkMode,onSearch }) => {
   const [genreAnchor, setGenreAnchor] = useState(null);
   const [sortOption, setSortOption] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleGenreClick = (event) => {
     setGenreAnchor(event.currentTarget);
@@ -41,10 +41,13 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
     setSortOption(e.target.value);
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Search for:', searchTerm);
-  };
+  const handleSubmit = (e) => {
+  e.preventDefault();
+  if (query.trim()) {
+    onSearch(query); // call the function passed from Home
+  }
+};
+
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -86,11 +89,11 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
             </Select>
           </FormControl>
 
-          <form onSubmit={handleSearch} style={{ display: 'flex', alignItems: 'center' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
             <InputBase
-              placeholder="Search…"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search Movies"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               sx={{
                 px: 1,
                 color: 'white',

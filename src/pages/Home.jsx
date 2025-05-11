@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import MovieList from '../components/MovieList';
 import { Button, Container } from '@mui/material';
+import SearchBar from '../components/SearchBar';
 
 const API_KEY = '6c7660e5cb8c5a17d4517e8efa57bc74';
 
@@ -12,6 +13,7 @@ const Home = () => {
 
   const [allMovies, setAllMovies] = useState([]);
   const [allPage, setAllPage] = useState(1);
+  const [searchResults, setSearchResults] = useState([]);
 
   // Fetch trending movies
 //   useEffect(() => {
@@ -43,10 +45,24 @@ const Home = () => {
     fetchAllMovies();
   }, [allPage]);
 
+  const handleSearch = async (query) => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`
+        );
+        const data = await response.json();
+        setSearchResults(data.results || []);
+      } catch (err) {
+        console.error('Error fetching search results:', err);
+      }
+    };
+
   return (
     <div>
-      <Navbar />
-
+      <Navbar onSearch={handleSearch} />
+      {searchResults.length > 0 && (
+        <MovieList title="Search Results" movies={searchResults} />
+      )}
       {/* Trending Movies Section */}
       {/* <MovieList title="Trending Movies" movies={trendingMovies} />
       <Container sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
