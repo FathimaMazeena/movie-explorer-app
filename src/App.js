@@ -7,6 +7,7 @@ import Favourites from './pages/Favourites';
 import './App.css';
 import React, { useState } from 'react';
 import Trending from './pages/Trending';
+import MovieDetail from './pages/MovieDetails';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
          <Route path="/trending" element={<Trending />} />
           <Route path="/favorites" element={<Favourites />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
         {/* <Route path="/signup" element={<Signup />} />
        
         <Route path="/movie/:id" element={<MovieDetails />} /> */}

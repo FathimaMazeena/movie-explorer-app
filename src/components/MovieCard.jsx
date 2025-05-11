@@ -3,6 +3,7 @@ import {
   Card, CardMedia, CardContent, CardActions,
   Typography, IconButton, Button, Box
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
@@ -66,7 +67,7 @@ const handleFavoriteClick = () => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button  component={Link} to={`/movie/${movie.id}`} size="small">Learn More</Button>
       </CardActions>
     </Card>
   );
